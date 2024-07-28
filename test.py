@@ -1,5 +1,26 @@
 import subprocess
 import sys
+import telethon
+from telethon.errors.rpcerrorlist import WebpageCurlFailedError
+
+# Example usage in a function
+def example_function():
+    try:
+        # Your Telethon code that might raise WebpageCurlFailedError
+        ...
+
+    except WebpageCurlFailedError as e:
+        # Handle the specific error
+        print(f"WebpageCurlFailedError occurred: {e}")
+
+    except telethon.TelegramClientError as e:
+        # Handle other Telethon errors
+        print(f"TelegramClientError occurred: {e}")
+
+    except Exception as e:
+        # Handle any other unexpected errors
+        print(f"Unexpected error occurred: {e}")
+
 
 # Function to install required packages
 def install(package):
