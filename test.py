@@ -63,9 +63,22 @@ def handle_message(message):
 
         if data.get('status') == 'success':
             m3u8_link = data.get('source')
-            link29 = "https://tinyurl.com/25hxdwv2"
             bot.send_chat_action(message.chat.id, 'typing')
-            video_path = download_video(link29, video_id)
+            #video_path = download_video(m3u8_link, video_id)
+
+            download = await download_file(m3u8_link, video_id)
+        if not download:
+            return await hm.edit(
+                f"Sorry! Download Failed but you can download it from [here]({data['direct_link']}).",
+                parse_mode="markdown",
+            )
+        file = await bot.send_file(
+            PRIVATE_CHAT_ID,
+            download,
+            caption=f"kt"
+        )
+
+            
             if video_path:
                 bot.send_chat_action(message.chat.id, 'upload_video')
                 with open(video_path, 'rb') as video_file:
