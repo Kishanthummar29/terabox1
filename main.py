@@ -53,7 +53,7 @@ def handle_message(message):
 
     bot.send_chat_action(message.chat.id, 'typing')
 
-    api_url = f'https://example.com/{video_id}'
+    api_url = f'https://core.mdiskplay.com/box/terabox/{video_id}'
     print(f"API URL: {api_url}")  # Debugging line
 
     response = requests.get(api_url)
