@@ -66,6 +66,7 @@ def handle_message(message):
             bot.send_chat_action(message.chat.id, 'typing')
             #video_path = download_video(m3u8_link, video_id)
 
+        except telethon.errors.rpcerrorlist.WebpageCurlFailedError:
             download = await download_file(m3u8_link, video_id)
             if not download:
                 return await bot.reply_to(
