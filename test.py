@@ -67,31 +67,19 @@ def handle_message(message):
             #video_path = download_video(m3u8_link, video_id)
 
             download = await download_file(m3u8_link, video_id)
-        if not download:
-            return await hm.edit(
-                f"Sorry! Download Failed but you can download it from [here]({data['direct_link']}).",
-                parse_mode="markdown",
+            if not download:
+                return await bot.reply_to(
+                    f"Sorry!",
+                    parse_mode="markdown",
+                )
+            file = await bot.send_video(
+                message.chat.id, 
+                video_file, 
+                caption=f'AX Terabox Downloader (Video ID :- 1{video_id})'
             )
-        file = await bot.send_file(
-            PRIVATE_CHAT_ID,
-            download,
-            caption=f"kt"
-        )
 
             
-            if video_path:
-                bot.send_chat_action(message.chat.id, 'upload_video')
-                with open(video_path, 'rb') as video_file:
-                    bot.send_video(message.chat.id, video_file, caption=f'AX Terabox Downloader (Video ID :- 1{video_id})')
-                os.remove(video_path)
-            else:
-                bot.reply_to(message, 'Failed to download the video. Please try again later.')
-        else:
-            bot.reply_to(message, 'Failed to retrieve the video. Please try again later.')
-    else:
-        print(f"Error fetching video: {response.text}")
-        bot.reply_to(message, 'An error occurred while processing your request. Please try again later.')
-
+            
 def download_segment(url, idx):
     response = requests.get(url, stream=True)
     if response.status_code == 200:
